@@ -36,10 +36,12 @@
   
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <a class="dropdown-item" href="#"></a>
-                   <?php if($_SESSION['admin']):?>
-                  <a class="dropdown-item" href="../../admin/dashboard.php">Dashboard</a>
+                   <?php if($_SESSION['admin']) : ?>
+
+                      <a class="dropdown-item" href="../../admin/dashboard.php">Dashboard</a>
+                      
+                      <a class="dropdown-item" href="../logout.php">Logout</a>
                   <?php endif; ?>
-                  <a class="dropdown-item" href="#">Logout</a>
                 </div>
               </div>
             </li>
@@ -47,7 +49,7 @@
             <li class="nav-item">
               <a class="nav-link" style="outline: 2px solid gold;" href="login.php">Get Started</a>
             </li>
-          <?php endif;?>
+          <?php endif; ?>
 
         </ul>
       </div>

@@ -1,5 +1,6 @@
 <?php
 
+include("path.php");
 include(ROOT_PATH . "/app/database/db.php");
 include(ROOT_PATH . "/app/helpers/validateUser.php");
 
@@ -18,10 +19,10 @@ function loginUser($user){
     $_SESSION['type'] = 'success';
 
   if ($_SESSION['admin']) {
-      header('Location: ' . BASE_URL . 'admin/dashboard.php');
+    //   header('Location: ' . BASE_URL . 'admin/dashboard.php');
       header('location:  ../../admin/dashboard.php'); // same as above
   } else {
-      header('Location: ' . BASE_URL . 'index.php');
+    //   header('Location: ' . BASE_URL . 'index.php');
       header('location:  ../../index.php'); // same as above
 
   }
@@ -106,7 +107,7 @@ if (isset($_POST['login-btn'])) {
             // header('Location: ' . BASE_URL . 'admin/dashboard.php');
             header('location:  ../../admin/dashboard.php'); // same as above
         } else {
-            // header('Location: ' . BASE_URL . 'index.php');
+            // header('Location: ' . BASE_URL . '/index.php');
             header('location:  ../../index.php'); // same as above
 
         }
