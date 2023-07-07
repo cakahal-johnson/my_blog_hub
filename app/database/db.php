@@ -189,6 +189,42 @@ function delete($table, $id){
     return $stmt->affected_rows;
 }
 
+// =================== selecting from two DataBase Table ==================
+function getPublishedPosts()
+{
+    global $conn;
+    
+    //SELECT * FROM posts WHERE published=1
+    // $sql = "SELECT p.*, u.username FROM posts As p JOIN users AS u ON p.user_id=u.id WHERE p.published=1";
+    $sql = "SELECT p.*, u.username FROM posts As p JOIN users AS u ON p.user_id=u.id WHERE p.published=?";
+    //using perpared statement
+    $stmt = executeQuery($sql, ['published' => 1]);
+    $records = $stmt->get_result()->fetch_assoc();
+    return $records ;
+}
+
+// =================== selecting from two DataBase Table ==================
+function searchPosts($term)
+{
+    $match = '%' . $term . '%';
+    global $conn;
+    
+    //SELECT * FROM posts WHERE published=1
+    // $sql = "SELECT p.*, u.username FROM posts As p JOIN users AS u ON p.user_id=u.id WHERE p.published=1";
+    $sql = "SELECT 
+                    p.*, u.username
+                FROM posts As p
+                JOIN users AS u 
+                ON p.user_id=u.id 
+                WHERE p.published=?
+                AND p.title LIKE ? OR p.body LIKE ?";
+                // AND p.title LIKE %?% OR p.body LIKE %?%";
+    //using perpared statement
+    $stmt = executeQuery($sql, ['published' => 1, 'title' => $match, 'body' => $match]);
+    $records = $stmt->get_result()->fetch_assoc();
+    return $records ;
+}
+
 /**================================================== */
 
 // $conditions = [

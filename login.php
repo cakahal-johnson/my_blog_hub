@@ -1,6 +1,6 @@
 
 <?php include("path.php"); ?>
-<?php include(ROOT_PATH . "/app/controllers/users.php"); ?>
+<?php include(IN_DIR . "/app/controllers/users.php"); ?>
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -83,7 +83,7 @@
                             <!-- <div class="msg success error">
                                 <li></li>
                             </div> -->
-                            <?php include(ROOT_PATH . "/app/helpers/formErrors.php"); ?>
+                            <?php include(IN_DIR . "/app/helpers/formErrors.php"); ?>
 
 
                             <form action="login.php" method="POST">

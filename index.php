@@ -1,6 +1,29 @@
-<?php include("path.php");
+<?php 
 
-include(ROOT_PATH . "/app/database/db.php");
+// session_start();
+
+include("path.php");
+
+include(IN_DIR . "../app/controllers/topics.php"); 
+
+$posts = array();
+$postsTitle = 'Recent Posts';
+
+// for search 
+if (isset($_POST['search_q']))
+{
+  // dd($_POST);
+  $postsTitle = "You searched for '" . $_POST['search_q'] . "'";
+  $posts = searchPosts($_POST['search_q']);
+}else{
+  $posts = selectAll('posts', ['published' => 1]);
+  // $posts = getPublishedPosts();
+
+}
+// $posts = selectAll('posts', ['published' => 1]);
+// $posts = getPublishedPosts();
+// dd($posts);
+
 
 ?>
 <!DOCTYPE html>
@@ -41,10 +64,8 @@ include(ROOT_PATH . "/app/database/db.php");
   </div>
   <!-- ***** Preloader End ***** -->
 
-  <?php include(ROOT_PATH . "/app/includes/header.php"); ?>
-  <?php include(ROOT_PATH . "/app/includes/messages.php"); ?>
-  <!-- <?php // include("app/includes/header.php") ; 
-        ?> -->
+  <?php include(IN_DIR . "../app/includes/header.php"); ?>
+
 
 
 
@@ -55,120 +76,37 @@ include(ROOT_PATH . "/app/database/db.php");
   <div class="main-banner header-text">
     <div class="container-fluid">
       <div class="owl-banner owl-carousel">
+      <?php foreach($posts as $post) : ?>
         <div class="item">
-          <img src="assets/images/banner-item-01.jpg" alt="">
+          <!-- <img src="assets/images/banner-item-01.jpg" alt=""> -->
+          <img src="<?php echo BASE_URL . '../assets/images/image/' . $post['image']; ?>" alt="">
           <div class="item-content">
             <div class="main-content">
               <div class="meta-category">
-                <span>Fashion</span>
+                <span>HighLights...</span>
               </div>
-              <a href="post-details.html">
-                <h4>Morbi dapibus condimentum</h4>
+              <a href="post-details.php?=id=<?php echo $post['id']; ?> ">
+                <h4><?php echo $post['title'] ;?></h4>
               </a>
               <ul class="post-info">
-                <li><a href="#">Admin</a></li>
-                <li><a href="#">May 12, 2020</a></li>
+                <!-- <li><a href="#"><?php // echo $post['username']; ?></a></li> -->
+                <li><a href="#"><?php  echo $post['id']; ?></a></li>
+                <li><a href="#"><?php echo date('F j, Y', strtotime($post['created_at'])) ;?></a></li>
                 <li><a href="#">12 Comments</a></li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="item">
-          <img src="assets/images/banner-item-02.jpg" alt="">
-          <div class="item-content">
-            <div class="main-content">
-              <div class="meta-category">
-                <span>Nature</span>
-              </div>
-              <a href="post-details.html">
-                <h4>Donec porttitor augue at velit</h4>
-              </a>
-              <ul class="post-info">
-                <li><a href="#">Admin</a></li>
-                <li><a href="#">May 14, 2020</a></li>
-                <li><a href="#">24 Comments</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/banner-item-03.jpg" alt="">
-          <div class="item-content">
-            <div class="main-content">
-              <div class="meta-category">
-                <span>Lifestyle</span>
-              </div>
-              <a href="post-details.html">
-                <h4>Best HTML Templates on TemplateMo</h4>
-              </a>
-              <ul class="post-info">
-                <li><a href="#">Admin</a></li>
-                <li><a href="#">May 16, 2020</a></li>
-                <li><a href="#">36 Comments</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/banner-item-04.jpg" alt="">
-          <div class="item-content">
-            <div class="main-content">
-              <div class="meta-category">
-                <span>Fashion</span>
-              </div>
-              <a href="post-details.html">
-                <h4>Responsive and Mobile Ready Layouts</h4>
-              </a>
-              <ul class="post-info">
-                <li><a href="#">Admin</a></li>
-                <li><a href="#">May 18, 2020</a></li>
-                <li><a href="#">48 Comments</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/banner-item-05.jpg" alt="">
-          <div class="item-content">
-            <div class="main-content">
-              <div class="meta-category">
-                <span>Nature</span>
-              </div>
-              <a href="post-details.html">
-                <h4>Cras congue sed augue id ullamcorper</h4>
-              </a>
-              <ul class="post-info">
-                <li><a href="#">Admin</a></li>
-                <li><a href="#">May 24, 2020</a></li>
-                <li><a href="#">64 Comments</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="assets/images/banner-item-06.jpg" alt="">
-          <div class="item-content">
-            <div class="main-content">
-              <div class="meta-category">
-                <span>Lifestyle</span>
-              </div>
-              <a href="post-details.html">
-                <h4>Suspendisse nec aliquet ligula</h4>
-              </a>
-              <ul class="post-info">
-                <li><a href="#">Admin</a></li>
-                <li><a href="#">May 26, 2020</a></li>
-                <li><a href="#">72 Comments</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <?php endforeach ;?>
+       
       </div>
     </div>
   </div>
   <!-- Banner Ends Here -->
 
 <!-- for messages TODO -->
+<?php include(IN_DIR . "/app/includes/messages.php"); ?>
+
 
   <section class="call-to-action">
     <div class="container">
@@ -182,7 +120,7 @@ include(ROOT_PATH . "/app/database/db.php");
               </div>
               <div class="col-lg-4">
                 <div class="main-button">
-                  <a rel="nofollow" href="https://templatemo.com/tm-551-stand-blog" target="_parent">Download Now!</a>
+                  <a rel="nofollow" href="#" target="_parent">Download Now!</a>
                 </div>
               </div>
             </div>
@@ -199,22 +137,28 @@ include(ROOT_PATH . "/app/database/db.php");
         <div class="col-lg-8">
           <div class="all-blog-posts">
             <div class="row">
+              <!-- ================== Recent Post =================== -->
+              <?php foreach($posts as $Rp) : ?>
               <div class="col-lg-12">
                 <div class="blog-post">
                   <div class="blog-thumb">
-                    <img src="assets/images/blog-post-01.jpg" alt="">
+                    <!-- <img src="assets/images/blog-post-01.jpg" alt=""> -->
+                    <img src="<?php echo BASE_URL . '../assets/images/image/' . $Rp['image']; ?>" alt="">
                   </div>
                   <div class="down-content">
-                    <span>Lifestyle</span>
-                    <a href="post-details.html">
-                      <h4>Best Template Website for HTML CSS</h4>
+                    <span>Class Project</span>
+                    <a href="post-details.php?=id=<?php echo $Rp['id']; ?> ">
+                      <h4><?php echo $Rp['title'] ;?></h4>
                     </a>
                     <ul class="post-info">
-                      <li><a href="#">Admin</a></li>
-                      <li><a href="#">May 31, 2020</a></li>
+                      <!-- <li><a href="#"><?php // echo $post['username']; ?></a></li> -->
+                      <li><a href="#"><?php echo $Rp['id']; ?></a></li>
+                      <li><a href="#"><?php echo date('F j, Y', strtotime($Rp['created_at'])) ;?></a></li>
                       <li><a href="#">12 Comments</a></li>
                     </ul>
-                    <p>Cakahal Blog is a free HTML CSS template for your CMS theme. You can easily adapt or customize it for any kind of CMS or website builder. You are allowed to use it for your business. You are NOT allowed to re-distribute the template ZIP file on any template collection site for the download purpose. <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">Contact TemplateMo</a> for more info. Thank you.</p>
+                    <p><?php echo html_entity_decode(substr($Rp['body'], 0, 150) . '...');?>
+                    <a rel="nofollow" href="post-details.php?=id=<?php echo $Rp['id']; ?> " target="_parent">...Cakahal Johnson</a> for more info. Thank you.
+                  </p>
                     <div class="post-options">
                       <div class="row">
                         <div class="col-6">
@@ -236,80 +180,9 @@ include(ROOT_PATH . "/app/database/db.php");
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12">
-                <div class="blog-post">
-                  <div class="blog-thumb">
-                    <img src="assets/images/blog-post-02.jpg" alt="">
-                  </div>
-                  <div class="down-content">
-                    <span>Healthy</span>
-                    <a href="post-details.html">
-                      <h4>Etiam id diam vitae lorem dictum</h4>
-                    </a>
-                    <ul class="post-info">
-                      <li><a href="#">Admin</a></li>
-                      <li><a href="#">May 24, 2020</a></li>
-                      <li><a href="#">36 Comments</a></li>
-                    </ul>
-                    <p>You can support us by contributing a little via PayPal. Please contact <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">TemplateMo</a> via Live Chat or Email. If you have any question or feedback about this template, feel free to talk to us. Also, you may check other CSS templates such as <a rel="nofollow" href="https://templatemo.com/tag/multi-page" target="_parent">multi-page</a>, <a rel="nofollow" href="https://templatemo.com/tag/resume" target="_parent">resume</a>, <a rel="nofollow" href="https://templatemo.com/tag/video" target="_parent">video</a>, etc.</p>
-                    <div class="post-options">
-                      <div class="row">
-                        <div class="col-6">
-                          <ul class="post-tags">
-                            <li><i class="fa fa-tags"></i></li>
-                            <li><a href="#">Best Templates</a>,</li>
-                            <li><a href="#">TemplateMo</a></li>
-                          </ul>
-                        </div>
-                        <div class="col-6">
-                          <ul class="post-share">
-                            <li><i class="fa fa-share-alt"></i></li>
-                            <li><a href="#">Facebook</a>,</li>
-                            <li><a href="#">Twitter</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="blog-post">
-                  <div class="blog-thumb">
-                    <img src="assets/images/blog-post-03.jpg" alt="">
-                  </div>
-                  <div class="down-content">
-                    <span>Fashion</span>
-                    <a href="post-details.html">
-                      <h4>Donec tincidunt leo nec magna</h4>
-                    </a>
-                    <ul class="post-info">
-                      <li><a href="#">Admin</a></li>
-                      <li><a href="#">May 14, 2020</a></li>
-                      <li><a href="#">48 Comments</a></li>
-                    </ul>
-                    <p>Nullam at quam ut lacus aliquam tempor vel sed ipsum. Donec pellentesque tincidunt imperdiet. Mauris sit amet justo vulputate, cursus massa congue, vestibulum odio. Aenean elit nunc, gravida in erat sit amet, feugiat viverra leo. Phasellus interdum, diam commodo egestas rhoncus, turpis nisi consectetur nibh, in vehicula eros orci vel neque.</p>
-                    <div class="post-options">
-                      <div class="row">
-                        <div class="col-6">
-                          <ul class="post-tags">
-                            <li><i class="fa fa-tags"></i></li>
-                            <li><a href="#">HTML CSS</a>,</li>
-                            <li><a href="#">Photoshop</a></li>
-                          </ul>
-                        </div>
-                        <div class="col-6">
-                          <ul class="post-share">
-                            <li><i class="fa fa-share-alt"></i></li>
-                            <li><a href="#">Facebook</a>,</li>
-                            <li><a href="#">Twitter</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <?php endforeach; ?>
+
+              <!-- ============Recents Post ends above =============== -->
               <div class="col-lg-12">
                 <div class="main-button">
                   <a href="blog.html">View All Posts</a>
@@ -323,15 +196,17 @@ include(ROOT_PATH . "/app/database/db.php");
             <div class="row">
               <div class="col-lg-12">
                 <div class="sidebar-item search">
-                  <form id="search_form" name="gs" method="GET" action="#">
-                    <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
+                  <!-- ===================== search section ==================== -->
+                  <form id="search_form" name="sq" method="POST" action="index.php">
+                    <input type="text" name="search_q" class="searchText" placeholder="type to search..." autocomplete="on">
                   </form>
                 </div>
               </div>
               <div class="col-lg-12">
                 <div class="sidebar-item recent-posts">
                   <div class="sidebar-heading">
-                    <h2>Recent Posts</h2>
+                    <!-- ==================== Rescent Post Section ============================== -->
+                    <h2><?php echo $postsTitle ?></h2>
                   </div>
                   <div class="content">
                     <ul>
@@ -358,12 +233,16 @@ include(ROOT_PATH . "/app/database/db.php");
                   </div>
                   <div class="content">
                     <ul>
-                      <li><a href="#">- Nature Lifestyle</a></li>
-                      <li><a href="#">- Awesome Layouts</a></li>
+                      
+                    <?php foreach($topics as $key => $topic) : ?>
+                      <li><a href="#">- <?php echo $topic['name']; ?></a></li>
+                    <?php endforeach; ?>
+                      <!-- <li><a href="#">- Nature Lifestyle</a></li> -->
+                      <!-- <li><a href="#">- Awesome Layouts</a></li>
                       <li><a href="#">- Creative Ideas</a></li>
                       <li><a href="#">- Responsive Templates</a></li>
                       <li><a href="#">- HTML5 / CSS3 Templates</a></li>
-                      <li><a href="#">- Creative &amp; Unique</a></li>
+                      <li><a href="#">- Creative &amp; Unique</a></li> -->
                     </ul>
                   </div>
                 </div>

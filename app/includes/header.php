@@ -27,29 +27,29 @@
             <a class="nav-link" href="contact.php">Contact</a>
           </li>
 
-          <?php if (isset($_SESSION['id'])) : ?>
-            <li class="nav-item">
-              <div class="dropdown">
-                <a class=" dropdown-toggle nav-link" href="#" role="" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <?php echo $_SESSION['username'];?>
+          <?php  if (isset($_SESSION['id'])) : ?>
+          <li class="nav-item">
+            <div class="dropdown">
+              <a class=" dropdown-toggle nav-link" href="#" role="" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-user"></i>
+                  <?php echo $_SESSION['username']; ?>
                 </a>
-  
+              
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="#"></a>
-                   <?php if($_SESSION['admin']) : ?>
-
-                      <a class="dropdown-item" href="../../admin/dashboard.php">Dashboard</a>
-                      
-                      <a class="dropdown-item" href="../logout.php">Logout</a>
-                  <?php endif; ?>
+                  <?php if($_SESSION['admin'] ) : ?>
+                    <a class="dropdown-item" href="../admin/dashboard.php">Dashboard</a>
+                    <?php  endif; ?>
+                    <a class="dropdown-item" href="<?php  echo BASE_URL . '../logout.php'; ?>">Logout</a>
+                  </div>
+                  
                 </div>
-              </div>
-            </li>
-          <?php else: ?>
+              </li>
+          <?php  else: ?>
             <li class="nav-item">
               <a class="nav-link" style="outline: 2px solid gold;" href="login.php">Get Started</a>
             </li>
-          <?php endif; ?>
+          <?php  endif; ?> 
+
 
         </ul>
       </div>

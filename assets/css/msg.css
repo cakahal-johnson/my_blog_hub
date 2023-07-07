@@ -2,21 +2,27 @@
 {
     width: 100%;
     margin: 10px auto;
-    padding: 8px;
+    padding: 10px;
+    text-align: center;
     border-radius: 5px;
     list-style: none;
+    font-size: large;
+
 }
 
 .success
 {
-    color: #3a6e3a;
-    border: 1px solid #3a6e3a;
-    background-color: #bcf5bc;
+    color: #ffffff;
+    border: 1px solid #97be97;
+    background-color: #70b470;
+    font-size: large;
+
 }
 
 .error
 {
-    color: #884b4b;
-    border: 1px solid #884b4b;
+    color: #ffffff;
+    border: 1px solid #f5bcbc;
     background-color: #f5bcbc;
+    font-size: large;
 }

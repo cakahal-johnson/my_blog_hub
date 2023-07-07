@@ -20,10 +20,22 @@ function validateUser($user){
     }
 
     // email unique
-    $existingUser = selectOne('Users', ['email' => $user['email']]);
-    if (isset($existingUser)) {
-        array_push($errors, 'Email already exists');
-    }
+    // $existingUser = selectOne('Users', ['email' => $user['email']]);
+    // if ($existingUser) {
+    //     array_push($errors, 'Email already exists');
+    // }
+
+    $existingUser = selectOne('users', ['email' => $user['email']]);
+    if ($existingUser) {
+        // for updating 
+        if (isset($user['update_user']) && $existingUser['id'] != $user['id']) {
+            array_push($errors, 'Same Post title already exists');  
+        }
+        // for Posting  
+        if (isset($user['create_admin'])) {
+            array_push($errors, 'Email already exists');  
+        }
+    }  
 
     return $errors;
 

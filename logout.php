@@ -1,8 +1,8 @@
 <?php
-include("path.php");
+// include("path.php");
 
 session_start();
-
+// session_unset();
 unset($_SESSION['id']);
 unset($_SESSION['username']);
 unset($_SESSION['admin']);
@@ -11,5 +11,5 @@ unset($_SESSION['type']);
 
 session_destroy();
 
-//  header('Location: ' . BASE_URL . 'index.php');
- header('location:  ../../index.php'); // same as above
+//  header('location: ' . BASE_URL . '../index.php');
+ header('location:  ../index.php'); // same as above

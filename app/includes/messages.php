@@ -4,7 +4,6 @@
       <?php
          unset($_SESSION['message']);
          unset($_SESSION['type']);
-      
       ?>
     </div>
   <?php endif; ?>

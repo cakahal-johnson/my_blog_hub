@@ -1,5 +1,6 @@
 <?php include("path.php"); ?>
-<?php include(ROOT_PATH . "/app/controllers/users.php"); ?>
+<?php include(IN_DIR . "../app/controllers/users.php"); ?>
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -48,7 +49,7 @@
                                 </li>
                             </ul>
                             <div class="right-area header-action d-flex align-items-center">
-                                <a href="<?php echo BASE_URL . '/login.php'; ?>" class="cmn-btn">Login Now</a>
+                                <a href="<?php echo BASE_URL . '../login.php'; ?>" class="cmn-btn">Login Now</a>
                             </div>
                         </div>
                     </nav>
@@ -73,7 +74,7 @@
                             </div>
 
                             <!-- message display -->
-                            <?php include(ROOT_PATH . "/app/helpers/formErrors.php"); ?>
+                            <?php include(IN_DIR . "/app/helpers/formErrors.php"); ?>
 
                      
 

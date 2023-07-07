@@ -14,7 +14,7 @@
             <div class="copyright-text">
               <p>Copyright 2020 Cakahal Blog Co.
                     
-                 | Design: <a rel="nofollow" href="#" target="_parent">Cakahal</a></p>
+                 | Design: <a rel="nofollow" href="#" target="_parent">Cakahal &#10083; </a></p>
             </div>
           </div>
         </div>

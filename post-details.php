@@ -1,3 +1,15 @@
+<?php include("path.php"); 
+
+include(IN_DIR . "../app/controllers/posts.php"); 
+
+if (isset($GET['id'])){
+  $post = selectOne('posts', ['id' => $_GET['id']]);
+  dd($post);
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +21,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
 
-    <title>Cakahal Blog - Post Details</title>
+    <title>Cakahal Blog - <?php echo $post['title']; ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,7 +60,7 @@
             <div class="col-lg-12">
               <div class="text-content">
                 <h4>Post Details</h4>
-                <h2>Single blog post</h2>
+                <h2><?php // echo $post['title']; ?> - blog post</h2>
               </div>
             </div>
           </div>
@@ -65,12 +77,12 @@
             <div class="main-content">
               <div class="row">
                 <div class="col-lg-8">
-                  <span>Stand Blog HTML5 Template</span>
+                  <span>Cakahal Johnson Template</span>
                   <h4>Creative HTML Template For Bloggers!</h4>
                 </div>
                 <div class="col-lg-4">
                   <div class="main-button">
-                    <a rel="nofollow" href="https://templatemo.com/tm-551-stand-blog" target="_parent">Download Now!</a>
+                    <a rel="nofollow" href="#" target="_parent">Download Now!</a>
                   </div>
                 </div>
               </div>
@@ -93,7 +105,7 @@
                       <img src="assets/images/blog-post-02.jpg" alt="">
                     </div>
                     <div class="down-content">
-                      <span>Lifestyle</span>
+                      <span>Class Project</span>
                       <a href="post-details.html"><h4>Aenean pulvinar gravida sem nec</h4></a>
                       <ul class="post-info">
                         <li><a href="#">Admin</a></li>
